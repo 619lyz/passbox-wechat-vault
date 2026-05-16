@@ -1,0 +1,120 @@
+<view class="page {{selecting ? 'page-selecting' : ''}}">
+  <view class="topbar">
+    <view>
+      <view class="title">Passbox</view>
+      <view class="subtitle">{{accounts.length}} 个账号 · 云端加密同步</view>
+    </view>
+    <view class="top-actions">
+      <view class="add-button" bind:tap="goCreate">
+        <text class="add-icon">＋</text>
+        <text class="add-text">新增</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="trust-strip" bind:tap="goTrust">
+      <view>
+        <view class="trust-title">安全与隐私</view>
+        <view class="trust-text">云端只保存密文，密码默认隐藏</view>
+      </view>
+    <view class="trust-arrow">›</view>
+  </view>
+
+  <view wx:if="{{accounts.length > 0}}" class="bulk-strip">
+    <view wx:if="{{!selecting}}" class="bulk-button" bind:tap="startSelecting">
+      <view>
+        <view class="bulk-title">批量管理</view>
+        <view class="bulk-text">选择多个账号后一起删除</view>
+      </view>
+      <view class="bulk-action">选择</view>
+    </view>
+    <view wx:else class="bulk-button bulk-button-active" bind:tap="cancelSelecting">
+      <view>
+        <view class="bulk-title">正在选择</view>
+        <view class="bulk-text">点选账号卡片，选中后圆点变红</view>
+      </view>
+      <view class="bulk-action danger">取消</view>
+    </view>
+  </view>
+
+  <view wx:if="{{accounts.length === 0}}" class="empty">
+    <view class="empty-logo">P</view>
+    <view class="empty-title">还没有保存账号</view>
+    <view class="empty-text">添加一个平台账号后，它会以图标卡片展示在这里。</view>
+    <button class="primary-button" bind:tap="goCreate">添加第一个账号</button>
+  </view>
+
+  <scroll-view wx:else class="account-scroll" scroll-y type="list">
+    <view class="account-grid">
+      <block wx:if="{{!selecting}}">
+        <view
+          wx:for="{{accounts}}"
+          wx:key="id"
+          class="account-card"
+          data-id="{{item.id}}"
+          bind:tap="goDetail"
+        >
+          <image
+            wx:if="{{item.customLogoPath}}"
+            class="logo-image"
+            src="{{item.customLogoPath}}"
+            mode="aspectFill"
+          />
+          <image
+            wx:elif="{{item.logo.image}}"
+            class="logo-image"
+            src="{{item.logo.image}}"
+            mode="aspectFill"
+          />
+          <view
+            wx:else
+            class="logo-badge"
+            style="background: {{item.logo.bg}}; color: {{item.logo.color}};"
+          >
+            {{item.logo.text}}
+          </view>
+          <view class="platform">{{item.platform || item.logo.name}}</view>
+          <view class="username">{{item.username}}</view>
+        </view>
+      </block>
+
+      <block wx:else>
+        <view
+          wx:for="{{accounts}}"
+          wx:key="id"
+          class="account-card {{item.selected ? 'account-card-selected' : ''}}"
+          data-id="{{item.id}}"
+          bind:tap="toggleSelect"
+        >
+          <view class="select-mark {{item.selected ? 'select-mark-active' : ''}}"></view>
+          <image
+            wx:if="{{item.customLogoPath}}"
+            class="logo-image"
+            src="{{item.customLogoPath}}"
+            mode="aspectFill"
+          />
+          <image
+            wx:elif="{{item.logo.image}}"
+            class="logo-image"
+            src="{{item.logo.image}}"
+            mode="aspectFill"
+          />
+          <view
+            wx:else
+            class="logo-badge"
+            style="background: {{item.logo.bg}}; color: {{item.logo.color}};"
+          >
+            {{item.logo.text}}
+          </view>
+          <view class="platform">{{item.platform || item.logo.name}}</view>
+          <view class="username">{{item.username}}</view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{selecting}}" class="batch-bar">
+    <view class="batch-cancel" bind:tap="cancelSelecting">取消</view>
+    <view class="batch-delete" bind:tap="deleteSelected">删除</view>
+  </view>
+</view>

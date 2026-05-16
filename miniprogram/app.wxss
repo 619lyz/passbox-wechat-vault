@@ -1,0 +1,12 @@
+page {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+view,
+button,
+input,
+textarea,
+scroll-view {
+  box-sizing: border-box;
+}

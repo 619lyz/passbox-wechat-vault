@@ -1,0 +1,58 @@
+<view class="page">
+  <view class="hero">
+    <view class="shield">✓</view>
+    <view class="title">安全与隐私</view>
+    <view class="subtitle">Passbox 会加密同步账号库，云端不会直接保存明文密码。</view>
+  </view>
+
+  <view class="status-card">
+    <view class="status-item">
+      <view class="status-value">{{accountCount}}</view>
+      <view class="status-label">同步账号</view>
+    </view>
+    <view class="divider"></view>
+    <view class="status-item">
+      <view class="status-value small">{{lastUpdatedText}}</view>
+      <view class="status-label">最近更新</view>
+    </view>
+  </view>
+
+  <view class="sync-card">
+    <view>
+      <view class="sync-title">云端加密同步</view>
+      <view class="sync-text">最近同步：{{lastSyncText}}</view>
+      <view wx:if="{{lastSyncError}}" class="sync-error">{{lastSyncError}}</view>
+    </view>
+    <view class="sync-badge">密文</view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">当前保护</view>
+    <view class="trust-row">
+      <view class="dot"></view>
+      <view>
+        <view class="row-title">云端只保存密文</view>
+        <view class="row-text">账号库会自动加密后上传，云端不会直接保存明文密码。</view>
+      </view>
+    </view>
+    <view class="trust-row">
+      <view class="dot"></view>
+      <view>
+        <view class="row-title">密码默认隐藏</view>
+        <view class="row-text">进入详情页时密码折叠，需要主动点击才会显示。</view>
+      </view>
+    </view>
+    <view class="trust-row">
+      <view class="dot"></view>
+      <view>
+        <view class="row-title">敏感操作确认</view>
+        <view class="row-text">删除账号前会二次确认，避免误删。</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="version-entry" bindtap="goAbout">
+    <view>Passbox v1.0.0</view>
+    <view class="version-arrow">›</view>
+  </view>
+</view>

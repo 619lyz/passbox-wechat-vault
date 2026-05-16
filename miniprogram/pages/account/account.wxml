@@ -1,0 +1,135 @@
+<view class="page {{mode === 'detail' ? 'detail-page' : 'form-page'}}">
+  <block wx:if="{{mode === 'detail'}}">
+    <view class="hero">
+      <image
+        wx:if="{{account.customLogoPath}}"
+        class="hero-logo hero-logo-image"
+        src="{{account.customLogoPath}}"
+        mode="aspectFill"
+      />
+      <image
+        wx:elif="{{account.logo.image}}"
+        class="hero-logo hero-logo-image"
+        src="{{account.logo.image}}"
+        mode="aspectFill"
+      />
+      <view
+        wx:else
+        class="hero-logo logo-badge"
+        style="background: {{account.logo.bg}}; color: {{account.logo.color}};"
+      >
+        {{account.logo.text}}
+      </view>
+      <view class="hero-title">{{account.platform}}</view>
+    </view>
+
+    <view class="detail-list">
+      <view class="detail-row">
+        <view class="detail-main">
+          <view class="label">账号</view>
+          <view class="value">{{account.username}}</view>
+        </view>
+        <button class="text-button" bindtap="copyUsername">复制</button>
+      </view>
+
+      <view class="detail-row password-row">
+        <view class="detail-main">
+          <view class="label">密码</view>
+          <view class="value password-value">{{showPassword ? account.password : '••••••••'}}</view>
+        </view>
+        <view class="row-actions">
+          <button class="text-button" bindtap="togglePassword">{{showPassword ? '隐藏' : '查看'}}</button>
+          <button class="text-button" bindtap="copyPassword">复制</button>
+        </view>
+      </view>
+
+      <view wx:if="{{account.note}}" class="note">
+        <view class="label">备注</view>
+        <view class="note-text">{{account.note}}</view>
+      </view>
+    </view>
+
+    <view class="footer-actions">
+      <button class="secondary-button" bindtap="startEdit">编辑</button>
+      <button class="danger-button" bindtap="deleteAccount">删除</button>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="form-section">
+      <view class="section-title">平台图标</view>
+      <scroll-view class="logo-scroll" scroll-x>
+        <view class="logo-options">
+          <view
+            wx:for="{{presetLogos}}"
+            wx:key="key"
+            class="logo-option {{selectedLogoKey === item.key ? 'logo-option-active' : ''}}"
+            data-key="{{item.key}}"
+            bindtap="selectLogo"
+          >
+            <image
+              wx:if="{{item.image}}"
+              class="logo-image small"
+              src="{{item.image}}"
+              mode="aspectFill"
+            />
+            <view wx:else class="logo-badge small" style="background: {{item.bg}}; color: {{item.color}};">
+              {{item.text}}
+            </view>
+            <view class="logo-name">{{item.name}}</view>
+          </view>
+        </view>
+      </scroll-view>
+      <button class="custom-logo-button" bindtap="chooseCustomLogo">
+        <text class="custom-logo-plus">＋</text>
+        <text>选择自定义图片</text>
+      </button>
+      <image
+        wx:if="{{form.customLogoPath}}"
+        class="custom-preview"
+        src="{{form.customLogoPath}}"
+        mode="aspectFill"
+      />
+    </view>
+
+    <view class="form-section">
+      <view class="field">
+        <view class="field-label">平台名称</view>
+        <input value="{{form.platform}}" data-field="platform" bindinput="onFieldInput" placeholder="例如：微信" />
+      </view>
+      <view class="field">
+        <view class="field-label">账号</view>
+        <input value="{{form.username}}" data-field="username" bindinput="onFieldInput" placeholder="手机号、邮箱或用户名" />
+      </view>
+      <view class="field">
+        <view class="field-label">密码</view>
+        <view class="password-input-row">
+          <input
+            value="{{form.password}}"
+            data-field="password"
+            bindinput="onFieldInput"
+            password="{{!showFormPassword}}"
+            placeholder="请输入密码"
+          />
+          <button class="eye-button" bindtap="toggleFormPassword" aria-label="{{showFormPassword ? '隐藏密码' : '显示密码'}}">
+            <view wx:if="{{showFormPassword}}" class="eye-icon eye-open">
+              <view class="eye-dot"></view>
+            </view>
+            <view wx:else class="eye-icon eye-closed">
+              <view class="eye-slash"></view>
+            </view>
+          </button>
+        </view>
+      </view>
+      <view class="field">
+        <view class="field-label">备注</view>
+        <textarea value="{{form.note}}" data-field="note" bindinput="onFieldInput" placeholder="可选" auto-height />
+      </view>
+    </view>
+
+    <view class="footer-actions">
+      <button class="secondary-button" bindtap="cancelEdit">取消</button>
+      <button class="primary-button" bindtap="saveAccount">保存</button>
+    </view>
+  </block>
+</view>
