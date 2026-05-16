@@ -1,6 +1,8 @@
 # Passbox
 
 Passbox 是一个基于微信小程序和微信云开发的账号密码管理工具。它用于记录不同平台的账号、密码、备注和图标，并将账号库加密后同步到云端。
+
+
 <img width="684" height="1260" alt="image" src="https://github.com/user-attachments/assets/0e037229-babf-4c39-bada-946b866087fe" />
 
 ## 功能
