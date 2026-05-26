@@ -1,64 +1,65 @@
 # Passbox
-（本项目是一个微信小程序练习项目，做着玩的，目的主要是：
-1. 想了解微信小程序从创建、开发、调试到预览的完整搭建流程；
-2. 练习 Vibe Coding 能力）
-   
-Passbox 是一个基于微信小程序和微信云开发的账号密码管理工具。它用于记录不同平台的账号、密码、备注和图标，并将账号库加密后同步到云端。
 
+Passbox is a WeChat Mini Program practice project built mainly to:
+
+1. Learn the complete setup workflow for a WeChat Mini Program, from creation and development to debugging and previewing.
+2. Practice Vibe Coding skills.
+
+Passbox is an account and password management tool based on WeChat Mini Program and WeChat Cloud Development. It records accounts, passwords, notes, and icons for different platforms, then encrypts the vault before syncing it to the cloud.
 
 <img width="684" height="1260" alt="image" src="https://github.com/user-attachments/assets/0e037229-babf-4c39-bada-946b866087fe" />
 
-## 功能
+## Features
 
-- 记录不同平台的账号和密码
-- 内置常见 App / 网站图标
-- 支持自定义平台图标
-- 密码默认折叠，进入详情后手动查看
-- 支持复制账号和密码
-- 支持编辑、删除和批量删除账号
-- 账号库自动加密后上传到微信云开发数据库
-- 云端只保存密文，不直接保存明文密码
-- 安全与隐私页面展示同步状态
-- 关于页面展示版本、作者和项目地址
+- Store accounts and passwords for different platforms
+- Built-in icons for common apps and websites
+- Support custom platform icons
+- Keep passwords collapsed by default, with manual viewing on the detail page
+- Copy account names and passwords
+- Edit, delete, and batch-delete accounts
+- Automatically encrypt the vault before uploading it to the WeChat Cloud Development database
+- Store only ciphertext in the cloud, without directly saving plaintext passwords
+- Show sync status on the Security and Privacy page
+- Show version, author, and project URL on the About page
 
-## 技术栈
+## Tech Stack
 
-- 微信小程序
-- 微信云开发 CloudBase
-- 云数据库
+- WeChat Mini Program
+- WeChat Cloud Development / CloudBase
+- Cloud Database
 - CryptoJS
 - AES-256-CBC + HMAC-SHA256
 - PBKDF2-SHA256
 
-## 项目结构
+## Project Structure
 
 ```text
-passbox-cloud
-├── cloudfunctions/          # 云函数目录
-├── miniprogram/             # 小程序源码
-│   ├── assets/              # 图标和静态资源
-│   ├── libs/                # 第三方库
-│   ├── pages/               # 页面
-│   └── utils/               # 数据、加密、云同步工具
-├── project.config.json      # 微信开发者工具项目配置
-└── README.md
+passbox-wechat-vault
+|-- cloudfunctions/          # Cloud function directory
+|-- miniprogram/             # Mini Program source code
+|   |-- assets/              # Icons and static assets
+|   |-- libs/                # Third-party libraries
+|   |-- pages/               # Pages
+|   `-- utils/               # Data, encryption, and cloud sync utilities
+|-- project.config.json      # WeChat DevTools project configuration
+`-- README.md
 ```
 
-## 云开发配置
+## Cloud Development Configuration
 
-项目使用云数据库集合：
+The project uses the following cloud database collection:
 
 ```text
 vaults
 ```
 
-建议数据库权限设置为：
+Recommended database permission setting:
 
 ```text
-仅创建者可读写
+Readable and writable only by the creator
 ```
 
-小程序云环境 ID 配置在：
+The Mini Program cloud environment ID is configured in:
 
 ```text
 miniprogram/app.js
@@ -68,18 +69,18 @@ miniprogram/app.js
 env: 'cloudbase-d9guy5yz6e83d6098'
 ```
 
-## 安全说明
+## Security Notes
 
-Passbox 会在本地将账号库加密后上传到云数据库。云端记录中应只出现 `encryptedVault`、`accountCount`、`updatedAt` 等字段，不应出现明文密码。
+Passbox encrypts the account vault locally before uploading it to the cloud database. Cloud records should only contain fields such as `encryptedVault`, `accountCount`, and `updatedAt`; plaintext passwords should not appear in cloud records.
 
-当前版本为了使用体验，采用应用内置同步密钥进行加密。正式用于高安全场景时，建议升级为用户自定义主密码或系统生物识别解锁方案。
+For convenience in the current version, encryption uses a sync key built into the app. For production or high-security use cases, it is recommended to upgrade to a user-defined master password or a system biometric unlock solution.
 
-## 作者
+## Author
 
-作者：619
+Author: 619
 
-GitHub：<https://github.com/619lyz>
+GitHub: <https://github.com/619lyz>
 
-## 版本
+## Version
 
-当前版本：`v1.0.0`
+Current version: `v1.0.0`
