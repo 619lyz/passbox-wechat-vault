@@ -2,7 +2,7 @@
 
 Passbox is a WeChat Mini Program practice project built mainly to:
 
-1. Learn the complete setup workflow for a WeChat Mini Program, from creation and development to debugging and previewing.
+1. Learn the complete setup workflow for a WeChat Mini Program, from creation and development to debugging and previewing
 2. Practice Vibe Coding skills.
 
 Passbox is an account and password management tool based on WeChat Mini Program and WeChat Cloud Development. It records accounts, passwords, notes, and icons for different platforms, then encrypts the vault before syncing it to the cloud.
